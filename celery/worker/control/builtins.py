@@ -212,3 +212,7 @@ def cancel_consumer(panel, queue=None, **_):
     cset = panel.consumer.task_consumer
     cset.cancel_by_queue(queue)
     return {"ok": "no longer consuming from %s" % (queue, )}
+
+@Panel.register
+def active_queues(panel, **kwargs):
+    return [q.__repr__() for q in panel.listener.task_consumer.queues]
